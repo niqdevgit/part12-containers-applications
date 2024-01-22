@@ -4,6 +4,7 @@ const router = express.Router();
 
 /* GET todos listing. */
 router.get('/', async (_, res) => {
+  //console.log("hi")
   const todos = await Todo.find({})
   res.send(todos);
 });
@@ -35,12 +36,16 @@ singleRouter.delete('/', async (req, res) => {
 
 /* GET todo. */
 singleRouter.get('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+  res.send(req.todo);
 });
 
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+  const { text, done } = req.body
+  if (text === undefined) return res.sendStatus(400)
+  if (done === undefined) return res.sendStatus(400)
+  await req.todo.update({ text, done })
+  res.send({ _id: req.todo._id, text, done });
 });
 
 router.use('/:id', findByIdMiddleware, singleRouter)
