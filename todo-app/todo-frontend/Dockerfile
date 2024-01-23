@@ -10,6 +10,8 @@ ENV REACT_APP_BACKEND_URL=http://localhost:3000
 
 RUN npm run build
 
+RUN CI=true npm test
+
 # This is a new stage, everything before this is gone, except the files we want to COPY
 FROM nginx:1.20-alpine
 # COPY the directory build from build-stage to /usr/share/nginx/html
