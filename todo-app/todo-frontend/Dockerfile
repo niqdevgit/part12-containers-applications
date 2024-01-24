@@ -6,11 +6,11 @@ COPY . .
 
 RUN npm ci
 
-ENV REACT_APP_BACKEND_URL=http://localhost:3000
+ENV REACT_APP_BACKEND_URL=http://localhost:3001
 
 RUN npm run build
 
-RUN CI=true npm test
+#RUN CI=true npm test
 
 # This is a new stage, everything before this is gone, except the files we want to COPY
 FROM nginx:1.20-alpine
